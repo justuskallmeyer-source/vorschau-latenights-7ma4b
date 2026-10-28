@@ -26,46 +26,20 @@
   $$('a', navi).forEach(a => a.addEventListener('click', () => menue(false)));
   addEventListener('keydown', e => { if (e.key === 'Escape') menue(false); });
 
-  /* Nachtleiste: 20 bis 5 Uhr, Münchner Zeit */
-  const OEFFNET = 20, DAUER = 9 * 60;
-  const zeitMuenchen = () => {
-    const t = new Intl.DateTimeFormat('de-DE', { timeZone: 'Europe/Berlin', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(new Date());
-    return { h: +t.find(p => p.type === 'hour').value, m: +t.find(p => p.type === 'minute').value };
+  /* Öffnungsstatus nach Münchner Zeit, geöffnet 20 bis 5 Uhr */
+  const statusFelder = $$('[data-status]');
+  const statusAktualisieren = () => {
+    const t = new Intl.DateTimeFormat('de-DE', { timeZone: 'Europe/Berlin', hour: 'numeric', hourCycle: 'h23' }).formatToParts(new Date());
+    const h = +t.find(p => p.type === 'hour').value;
+    const text = (h >= 20 || h < 5) ? 'jetzt geöffnet' : 'heute ab 20 Uhr';
+    statusFelder.forEach(el => { el.textContent = text; });
   };
-  const dauerText = min => {
-    const h = Math.floor(min / 60), m = min % 60;
-    if (h && m) return `${h} Std. ${m} Min.`;
-    return h ? `${h} Std.` : `${m} Min.`;
-  };
-  const nacht = $('[data-nacht]'), nachtText = $('[data-nacht-text]'), fuell = $('[data-nacht-fuell]'), marke = $('[data-nacht-marke]');
-  const statusKlein = $('[data-status-klein]');
-  const nachtAktualisieren = () => {
-    const { h, m } = zeitMuenchen();
-    const offen = h >= OEFFNET || h < 5;
-    let text, klein;
-    if (offen) {
-      const seit = (h >= OEFFNET ? (h - OEFFNET) * 60 : (h + 24 - OEFFNET) * 60) + m;
-      const rest = DAUER - seit;
-      const anteil = seit / DAUER * 100;
-      fuell.style.width = anteil + '%';
-      marke.style.left = anteil + '%';
-      text = rest <= 60 ? `Jetzt offen, letzte Stunde` : `Jetzt offen, noch ${dauerText(rest)}`;
-      klein = 'Gerade geöffnet';
-    } else {
-      fuell.style.width = '0%';
-      const bis = (OEFFNET - h) * 60 - m;
-      text = bis <= 60 ? `Öffnet in ${dauerText(bis)}` : `Heute ab 20 Uhr geöffnet`;
-      klein = `Öffnet heute um 20 Uhr`;
-    }
-    nachtText.textContent = text;
-    nacht.classList.toggle('ist-offen', offen);
-    if (statusKlein) { statusKlein.textContent = klein; statusKlein.classList.toggle('ist-offen', offen); }
-  };
-  nachtAktualisieren();
-  setInterval(nachtAktualisieren, 30000);
-  const nachtHoehe = () => document.documentElement.style.setProperty('--nacht-hoehe', nacht.offsetHeight + 'px');
-  nachtHoehe();
-  addEventListener('resize', nachtHoehe);
+  statusAktualisieren();
+  setInterval(statusAktualisieren, 60000);
+  const leiste = $('[data-leiste]');
+  const leisteHoehe = () => document.documentElement.style.setProperty('--leiste-hoehe', leiste.offsetHeight + 'px');
+  leisteHoehe();
+  addEventListener('resize', leisteHoehe);
 
   /* Hero: Kamera fährt durch die offene Tür an die Theke */
   const TUER = { quer: [0.36, 0.63], hoch: [0.28, 0.57] };
@@ -83,38 +57,21 @@
   addEventListener('resize', tuerAnsetzen);
   tuerAnsetzen();
 
-  const text1 = $('[data-text1]'), text2 = $('[data-text2]');
+  const text1 = $('[data-text1]');
   if (window.gsap && window.ScrollTrigger && !ruhig) {
     gsap.registerPlugin(ScrollTrigger);
     const tl = gsap.timeline({
       defaults: { ease: 'none' },
       scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom bottom', scrub: 0.6, invalidateOnRefresh: true }
     });
-    tl.to(text1, { autoAlpha: 0, y: -40, duration: 0.14 }, 0.04)
-      .fromTo(aussenImg, { scale: 1 }, { scale: 5.2, duration: 0.56, ease: 'power2.in' }, 0.04)
-      .to('[data-dunkel]', { opacity: 0.85, duration: 0.12 }, 0.44)
-      .fromTo('[data-innen]', { opacity: 0 }, { opacity: 1, duration: 0.14 }, 0.52)
-      .fromTo('[data-innen] img', { scale: 1.28 }, { scale: 1, duration: 0.44, ease: 'power1.out' }, 0.52)
-      .to('[data-dunkel]', { opacity: 0, duration: 0.14 }, 0.56)
-      .fromTo(text2, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.12 }, 0.74)
-      .to({}, { duration: 0.1 }, 0.9);
+    tl.to(text1, { autoAlpha: 0, duration: 0.15 }, 0.05)
+      .fromTo(aussenImg, { scale: 1 }, { scale: 2.6, duration: 0.6, ease: 'power1.in' }, 0.05)
+      .to('[data-dunkel]', { opacity: 0.7, duration: 0.15 }, 0.45)
+      .fromTo('[data-innen]', { opacity: 0 }, { opacity: 1, duration: 0.15 }, 0.55)
+      .fromTo('[data-innen] img', { scale: 1.12 }, { scale: 1, duration: 0.4 }, 0.55)
+      .to('[data-dunkel]', { opacity: 0, duration: 0.15 }, 0.6)
+      .to({}, { duration: 0.05 }, 0.95);
     addEventListener('load', () => ScrollTrigger.refresh());
-  } else {
-    text1.style.opacity = 1;
-  }
-
-  /* Schild: Schriftzug geht beim ersten Sichtkontakt flackernd an */
-  const schild = $('[data-schild]');
-  if (schild && !ruhig && 'IntersectionObserver' in window) {
-    schild.classList.add('ist-aus');
-    const io = new IntersectionObserver(eintraege => {
-      if (eintraege[0].isIntersecting) {
-        schild.classList.remove('ist-aus');
-        schild.classList.add('flackert');
-        io.disconnect();
-      }
-    }, { threshold: 0.6 });
-    io.observe(schild);
   }
 
   /* Anfrage-Planer */
