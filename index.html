@@ -50,34 +50,24 @@
 
 <main id="top">
 
-  <!-- Hero: von der Straße durch die Tür an die Theke -->
-  <section class="hero" data-hero aria-label="Late Nights, Tal 15">
-    <div class="hero-buehne">
-      <picture class="hero-bild hero-aussen" data-aussen>
-        <source media="(max-aspect-ratio: 4/5)" srcset="img/fassade-hoch-800.webp 800w, img/fassade-hoch-1600.webp 1600w" sizes="100vw">
-        <img src="img/fassade-1600.webp" srcset="img/fassade-800.webp 800w, img/fassade-1600.webp 1600w, img/fassade-2400.webp 2400w" sizes="100vw" alt="Die beleuchtete Fassade von Late Nights im Tal 15 bei Nacht, die Tür steht offen" fetchpriority="high">
-      </picture>
-      <picture class="hero-bild hero-innen" data-innen>
-        <source media="(max-aspect-ratio: 4/5)" srcset="img/discokugeln-hoch-800.webp 800w, img/discokugeln-hoch-1600.webp 1600w" sizes="100vw">
-        <img src="img/theke-1600.webp" srcset="img/theke-800.webp 800w, img/theke-1600.webp 1600w, img/theke-2400.webp 2400w" sizes="100vw" alt="Die Theke mit Comic-Collage, Kupferlampen und Discokugeln in rotem Licht">
-      </picture>
-      <div class="hero-dunkel" data-dunkel></div>
-      <div class="hero-verlauf"></div>
-
-      <div class="hero-text" data-text1>
-        <h1 class="hero-titel"><span>Bar und</span> <span>Eventlocation</span> <span>im Tal</span></h1>
-        <p class="hero-unter">Late Nights, Tal 15 in der Münchner Altstadt. Täglich von 20 bis 5 Uhr geöffnet.</p>
-        <div class="knopfreihe">
-          <a class="knopf" href="#anfrage">Feier anfragen</a>
-          <a class="knopf knopf-linie" href="#anfahrt">Anfahrt</a>
-        </div>
+  <!-- Hero -->
+  <section class="hero" aria-label="Late Nights, Tal 15">
+    <picture class="hero-bild">
+      <source media="(max-width: 699px)" srcset="img/discokugeln-hoch-800.webp 800w, img/discokugeln-hoch-1600.webp 1600w" sizes="100vw">
+      <img src="img/theke-1600.webp" srcset="img/theke-800.webp 800w, img/theke-1600.webp 1600w, img/theke-2400.webp 2400w" sizes="100vw" alt="Die Theke mit Comic-Collage, Kupferlampen und Discokugeln in rotem Licht" fetchpriority="high">
+    </picture>
+    <div class="hero-inhalt rahmen">
+      <h1 class="hero-titel"><span>Bar und</span> <span>Eventlocation</span> <span>im Tal</span></h1>
+      <p class="hero-unter">Late Nights, Tal 15 in der Münchner Altstadt. Täglich von 20 bis 5 Uhr geöffnet.</p>
+      <div class="knopfreihe">
+        <a class="knopf" href="#anfrage">Feier anfragen</a>
+        <a class="knopf knopf-linie" href="#anfahrt">Anfahrt</a>
       </div>
-
-      <div class="hero-leiste" data-leiste>
-        <span>Tal 15, 80331 München</span>
-        <span>Täglich 20 bis 5 Uhr <span class="status" data-status></span></span>
-        <a href="tel:+491779278497">0177 9278497</a>
-      </div>
+    </div>
+    <div class="hero-leiste rahmen">
+      <a href="https://maps.app.goo.gl/JRE1tUL3zbhGaq8K6" target="_blank" rel="noopener">Tal 15, 80331 München</a>
+      <span>Täglich 20 bis 5 Uhr <span class="status" data-status></span></span>
+      <a href="tel:+491779278497">0177 9278497</a>
     </div>
   </section>
 
@@ -227,6 +217,7 @@
       <a class="kachel k-breit" href="img/fenster-2400.webp"><img src="img/fenster-800.webp" srcset="img/fenster-800.webp 800w, img/fenster-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" alt="Die Theke mit Kupferlampen vor den großen Fenstern" loading="lazy"></a>
       <a class="kachel k-breit" href="img/wc-2-2400.webp"><img src="img/wc-2-800.webp" srcset="img/wc-2-800.webp 800w, img/wc-2-1600.webp 1600w" sizes="(min-width: 900px) 50vw, 100vw" alt="Waschbecken vor einer Wand voller Comics" loading="lazy"></a>
     </div>
+    <p class="rahmen galerie-hinweis">Zum Weiterblättern wischen, zum Vergrößern antippen.</p>
   </section>
 
   <!-- Anfahrt -->
@@ -273,8 +264,6 @@
   <button type="button" class="lk-pfeil lk-vor" data-lk-vor aria-label="Nächstes Bild">→</button>
 </dialog>
 
-<script src="js/vendor/gsap.min.js"></script>
-<script src="js/vendor/ScrollTrigger.min.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

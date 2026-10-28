@@ -1,14 +1,13 @@
-/* Late Nights: Hero, Nachtleiste, Schild, Anfrage-Planer, Bildansicht */
+/* Late Nights: Kopfzeile, Öffnungsstatus, Anfrage-Planer, Bildansicht */
 (() => {
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-  const ruhig = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* Kopfzeile dunkel, sobald der Hero verlassen ist; Menü auf dem Handy */
   const kopf = $('[data-kopf]');
-  const hero = $('[data-hero]');
+  const hero = $('.hero');
   const kopfPruefen = () => {
-    const grenze = hero ? hero.offsetHeight - innerHeight * 1.05 : 40;
+    const grenze = hero ? hero.offsetHeight - kopf.offsetHeight - 10 : 40;
     kopf.classList.toggle('ist-dunkel', scrollY > Math.max(40, grenze));
   };
   addEventListener('scroll', kopfPruefen, { passive: true });
@@ -36,43 +35,6 @@
   };
   statusAktualisieren();
   setInterval(statusAktualisieren, 60000);
-  const leiste = $('[data-leiste]');
-  const leisteHoehe = () => document.documentElement.style.setProperty('--leiste-hoehe', leiste.offsetHeight + 'px');
-  leisteHoehe();
-  addEventListener('resize', leisteHoehe);
-
-  /* Hero: Kamera fährt durch die offene Tür an die Theke */
-  const TUER = { quer: [0.36, 0.63], hoch: [0.28, 0.57] };
-  const aussenImg = $('[data-aussen] img');
-  const tuerAnsetzen = () => {
-    const W = innerWidth, H = aussenImg.clientHeight;
-    const hoch = (aussenImg.currentSrc || aussenImg.src).includes('-hoch');
-    const iw = aussenImg.naturalWidth || (hoch ? 2662 : 4000), ih = aussenImg.naturalHeight || (hoch ? 4000 : 2662);
-    const s = Math.max(W / iw, H / ih);
-    const [u, v] = hoch ? TUER.hoch : TUER.quer;
-    const x = (W - iw * s) / 2 + u * iw * s, y = (H - ih * s) / 2 + v * ih * s;
-    aussenImg.style.transformOrigin = `${x.toFixed(1)}px ${y.toFixed(1)}px`;
-  };
-  aussenImg.addEventListener('load', tuerAnsetzen);
-  addEventListener('resize', tuerAnsetzen);
-  tuerAnsetzen();
-
-  const text1 = $('[data-text1]');
-  if (window.gsap && window.ScrollTrigger && !ruhig) {
-    gsap.registerPlugin(ScrollTrigger);
-    const tl = gsap.timeline({
-      defaults: { ease: 'none' },
-      scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom bottom', scrub: 0.6, invalidateOnRefresh: true }
-    });
-    tl.to(text1, { autoAlpha: 0, duration: 0.15 }, 0.05)
-      .fromTo(aussenImg, { scale: 1 }, { scale: 2.6, duration: 0.6, ease: 'power1.in' }, 0.05)
-      .to('[data-dunkel]', { opacity: 0.7, duration: 0.15 }, 0.45)
-      .fromTo('[data-innen]', { opacity: 0 }, { opacity: 1, duration: 0.15 }, 0.55)
-      .fromTo('[data-innen] img', { scale: 1.12 }, { scale: 1, duration: 0.4 }, 0.55)
-      .to('[data-dunkel]', { opacity: 0, duration: 0.15 }, 0.6)
-      .to({}, { duration: 0.05 }, 0.95);
-    addEventListener('load', () => ScrollTrigger.refresh());
-  }
 
   /* Anfrage-Planer */
   const planer = $('[data-planer]');
