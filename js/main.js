@@ -39,7 +39,7 @@
   /* Anfrage-Planer */
   const planer = $('[data-planer]');
   if (planer) {
-    const ausgabe = $('[data-nachricht]'), wa = $('[data-whatsapp]'), kopieren = $('[data-kopieren]');
+    const ausgabe = $('[data-nachricht]'), wa = $('[data-whatsapp]'), mail = $('[data-mail]'), kopieren = $('[data-kopieren]');
     const datumFeld = $('#p-datum'), datumHinweis = $('[data-datum-hinweis]'), gaesteFeld = $('#p-gaeste');
     const heute = new Date(); heute.setHours(0, 0, 0, 0);
     const iso = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
@@ -69,6 +69,7 @@
       text += `\n\nIst das möglich? Ich freue mich auf eure Rückmeldung.\n\nViele Grüße${name ? '\n' + name : ''}`;
       ausgabe.textContent = text;
       wa.href = 'https://wa.me/491779278497?text=' + encodeURIComponent(text);
+      mail.href = 'mailto:info@late-nights.de?subject=' + encodeURIComponent(`Anfrage ${anlass}${datum ? ' am ' + datumLang(datum) : ''}`) + '&body=' + encodeURIComponent(text);
       return text;
     };
     planer.addEventListener('input', bauen);

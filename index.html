@@ -6,14 +6,17 @@
 <title>Late Nights | Bar und Eventlocation im Tal, München</title>
 <meta name="description" content="Late Nights im Tal 15, München: Bar mit Comic-Theke und Discokugeln, täglich 20 bis 5 Uhr. Für Geburtstage, Firmenfeiern und private Feiern auch exklusiv buchbar.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#0c0b0d">
+<meta name="theme-color" content="#0a0909">
 <meta property="og:title" content="Late Nights | Bar und Eventlocation im Tal, München">
 <meta property="og:description" content="Bar im Tal 15, täglich 20 bis 5 Uhr. Auch für eure Feier.">
 <meta property="og:image" content="img/theke-1600.webp">
-<link rel="preload" href="fonts/archivo-normal-300-900-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/noto-serif-display-normal-300-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/archivo-normal-300-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="img/logo-voll-klein.webp" as="image">
 <link rel="stylesheet" href="fonts/fonts.css">
 <link rel="stylesheet" href="css/style.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%230c0b0d' stroke='%23d9b26f' stroke-width='3'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='700' font-size='26' text-anchor='middle' fill='%23d9b26f'%3ELN%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -23,6 +26,8 @@
   "address": { "@type": "PostalAddress", "streetAddress": "Tal 15", "postalCode": "80331", "addressLocality": "München", "addressCountry": "DE" },
   "geo": { "@type": "GeoCoordinates", "latitude": 48.1363639, "longitude": 11.5796362 },
   "telephone": "+49 177 9278497",
+  "email": "info@late-nights.de",
+  "logo": "img/logo-voll.webp",
   "openingHours": "Mo-Su 20:00-05:00",
   "image": "img/theke-1600.webp"
 }
@@ -32,8 +37,7 @@
 
 <header class="kopf" data-kopf>
   <a class="marke" href="#top" aria-label="Late Nights, zum Seitenanfang">
-    <span class="marke-ring" aria-hidden="true">LN</span>
-    <span class="marke-name">Late Nights</span>
+    <img class="marke-bild" src="img/logo-monogramm-klein.webp" width="261" height="258" alt="">
   </a>
   <nav class="navi" id="navi" aria-label="Hauptnavigation">
     <a href="#bar">Bar</a>
@@ -57,8 +61,8 @@
       <img src="img/theke-1600.webp" srcset="img/theke-800.webp 800w, img/theke-1600.webp 1600w, img/theke-2400.webp 2400w" sizes="100vw" alt="Die Theke mit Comic-Collage, Kupferlampen und Discokugeln in rotem Licht" fetchpriority="high">
     </picture>
     <div class="hero-inhalt rahmen">
-      <h1 class="hero-titel"><span>Bar und</span> <span>Eventlocation</span> <span>im Tal</span></h1>
-      <p class="hero-unter">Late Nights, Tal 15 in der Münchner Altstadt. Täglich von 20 bis 5 Uhr geöffnet.</p>
+      <h1 class="hero-logo"><img src="img/logo-voll-klein.webp" srcset="img/logo-voll-klein.webp 520w, img/logo-voll.webp 1040w" sizes="(min-width: 900px) 460px, 70vw" width="520" height="405" alt="Late Nights"></h1>
+      <p class="hero-unter">Bar und Eventlocation im Tal, München</p>
       <div class="knopfreihe">
         <a class="knopf" href="#anfrage">Feier anfragen</a>
         <a class="knopf knopf-linie" href="#anfahrt">Anfahrt</a>
@@ -134,7 +138,7 @@
     <div class="rahmen anfrage" id="anfrage">
       <div class="anfrage-kopf">
         <h3 class="titel titel-mittel">Anfrage</h3>
-        <p>Aus euren Angaben entsteht eine Nachricht, die ihr per WhatsApp sendet oder kopiert.</p>
+        <p>Aus euren Angaben entsteht eine Nachricht, die ihr per WhatsApp oder E-Mail sendet.</p>
       </div>
       <form class="planer" data-planer novalidate>
         <fieldset class="feld feld-voll">
@@ -193,9 +197,9 @@
         <p class="nachricht-text" data-nachricht></p>
         <div class="knopfreihe">
           <a class="knopf" data-whatsapp href="https://wa.me/491779278497" target="_blank" rel="noopener">Per WhatsApp senden</a>
-          <button class="knopf knopf-linie" type="button" data-kopieren>Text kopieren</button>
+          <a class="knopf knopf-linie" data-mail href="mailto:info@late-nights.de">Per E-Mail senden</a>
         </div>
-        <p class="nachricht-fuss">Telefon: <a href="tel:+491779278497">0177 9278497</a></p>
+        <p class="nachricht-fuss"><button class="text-knopf" type="button" data-kopieren>Text kopieren</button><span>Telefon: <a href="tel:+491779278497">0177 9278497</a></span></p>
       </div>
     </div>
   </section>
@@ -232,6 +236,7 @@
           <div><dt>Adresse</dt><dd>Late Nights<br>Tal 15<br>80331 München</dd></div>
           <div><dt>Geöffnet</dt><dd>Täglich 20 bis 5 Uhr <span class="status" data-status></span></dd></div>
           <div><dt>Telefon</dt><dd><a href="tel:+491779278497">0177 9278497</a></dd></div>
+          <div><dt>E-Mail</dt><dd><a href="mailto:info@late-nights.de">info@late-nights.de</a></dd></div>
           <div><dt>Bahn</dt><dd>S- und U-Bahn Marienplatz oder S-Bahn Isartor, jeweils rund 5 Minuten zu Fuß</dd></div>
         </dl>
         <div class="knopfreihe">
@@ -246,12 +251,12 @@
 
 <footer class="fuss">
   <div class="rahmen fuss-raster">
-    <div>
-      <p class="fuss-marke">Late Nights</p>
-      <p class="fuss-slogan">Local Drink Syndicate</p>
+    <div class="fuss-marke">
+      <img src="img/logo-schrift-klein.webp" width="520" height="118" alt="Late Nights" loading="lazy">
+      <p>Local Drink Syndicate</p>
     </div>
     <p>Tal 15<br>80331 München</p>
-    <p>Täglich 20 bis 5 Uhr<br><a href="tel:+491779278497">0177 9278497</a></p>
+    <p>Täglich 20 bis 5 Uhr<br><a href="tel:+491779278497">0177 9278497</a><br><a href="mailto:info@late-nights.de">info@late-nights.de</a></p>
     <p><a href="impressum.html">Impressum</a><br><a href="datenschutz.html">Datenschutz</a></p>
   </div>
 </footer>
